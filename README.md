@@ -19,4 +19,4 @@ A user's profile (which contains badges and current party) will be stored on the
 
 # External Links:
 * [Trello board with user stories](https://trello.com/b/OajpLWGV/reactpokedex)
-* [Hosted Heroku page]()
+* [Hosted Heroku page](http://kantokalos.herokuapp.com/)
