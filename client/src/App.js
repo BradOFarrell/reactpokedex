@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
+import Oak from './pokemonHelper.js';
 
 class App extends Component {
   constructor() {
@@ -15,6 +16,9 @@ class App extends Component {
     axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
       this.setState({trainer : res.data});
       console.log(this.state.trainer);
+      console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
+      console.log(Oak.nameToDex("pikachu"));
+      console.log(Oak.getTypeEffectiveness("electric"));
     })
     .catch((err) => {
       console.log("Error loading users. "+err);
