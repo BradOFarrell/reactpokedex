@@ -18,7 +18,8 @@ class App extends Component {
       console.log(this.state.trainer);
       console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
       console.log(Oak.nameToDex("pikachu"));
-      console.log(Oak.getTypeEffectiveness("electric"));
+      console.log(Oak.getBestAttack("fire","water","dragon","flying"));
+
     })
     .catch((err) => {
       console.log("Error loading users. "+err);
