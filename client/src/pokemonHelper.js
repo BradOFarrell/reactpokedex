@@ -52,10 +52,21 @@ The above, but rotated for attack rather than defense. Reference only.
 
 class Oak{
     dexToName(num){
-        return dex[num-1];
+        const checkValue = dex[num-1];
+        if(checkValue)
+            return checkValue
+        else 
+            return "";
     }
     nameToDex(name){
-        return dex.indexOf(name)+1;
+        const checkValue = dex.indexOf(name)+1;
+        if(checkValue != -1)
+            return checkValue
+        else 
+            return 0;
+    }
+    dexToSprite(num){
+        return "../sprites/"+num+".png";
     }
     getTypeEffectiveness(typeString){
         let output;        

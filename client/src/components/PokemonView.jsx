@@ -6,8 +6,8 @@ import Oak from '../pokemonHelper.js';
 
 class PokemonView extends Component {
   render() {
-    const spriteURL = "../sprites/"+this.props.dexNum+".png";
-    const pokemonName = Oak.dexToName(this.props.dexNum);    
+    const spriteURL = Oak.dexToSprite(this.props.dexNumber)
+    const pokemonName = Oak.dexToName(this.props.dexNumber);
     return (
       <div>
         <img src={spriteURL}/>

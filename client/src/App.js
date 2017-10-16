@@ -8,13 +8,23 @@ import BattlePage from "./components/BattlePage.jsx"
 import TrainerPage from "./components/TrainerPage.jsx"
 import './App.css';
 
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      trainer: {}, // this is the user you are playing as
+      trainer: {
+        username: '',
+        party: {
+          winStreak: 0,
+          team: []
+        }
+      }, // this is the user you are playing as
       num: 20
     };
+  }
+  updateTrainer(newTrainer){
+    this.setState({trainer : newTrainer});
   }
   componentWillMount(){
     axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
@@ -23,7 +33,6 @@ class App extends Component {
       console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
       console.log(Oak.nameToDex("pikachu"));
       console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
-
     })
     .catch((err) => {
       console.log("Error loading users. "+err);
@@ -31,19 +40,18 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
+      <Router>
+        <div className="App">
         <NavBar/>
-      <div>
-      <a href="/dex">Dex</a>
+        <Switch>
+        <Route path="/dex/:num" render={() => (<PokedexPage/>)}/>
+        <Route path="/dex" render={() => (<PokedexPage/>)}/>
+        <Route path="/battle" render={() => (<BattlePage trainer={this.state.trainer}/>)}/>
+        <Route path="/trainer" render={() => (<TrainerPage trainer={this.state.trainer}/>)}/>
+        <Route exact path="/" render={() => (<PokedexPage/>)}/>
+        </Switch>
       </div>
-        <Router><Switch>
-        <Route path="/dex/:num" component={PokedexPage} />
-        <Route path="/dex" component={PokedexPage}/>
-        <Route path="/battle" component={BattlePage}/>
-        <Route path="/trainer" component={TrainerPage}/>
-        <Route path="/" component={PokedexPage}/>
-        </Switch></Router>
-      </div>
+      </Router>
     );
   }
 }

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import styled from 'styled-components';
 import '../App.css';
 
 const NavWrapper = styled.div`
   background-color: red;
   padding: 26px 5vw;
-  width: 90vw;
-  height: 25px;
+  width: 100vw;
+  height: 75px;
   border-bottom: 1px solid rgba(0,0,0,.0975);
-  a{
-    font-size: 1.75rem;
+  p{
+    font-size: 2.75rem;
     color: white;
     text-align: center;
     font-family: 'Trebuchet MS';
@@ -19,21 +19,25 @@ const NavWrapper = styled.div`
       margin-bottom: 5px;
     }  
   }
+  a{
+    color: white;
+  }
 `
 
 class NavBar extends Component {
   render() {
     return (
-      <Router>
       <div>
       <NavWrapper>
+      <p>
       <Link to="/dex">Pokédex</Link>
+      &nbsp;
       <Link to="/battle">Battle</Link>
+      &nbsp;
       <Link to="/trainer">Trainer</Link>
+      </p>
       </NavWrapper>
-      <a href="/battle"></a>
       </div>
-      </Router>
     );
   }
 }

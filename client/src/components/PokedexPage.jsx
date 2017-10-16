@@ -5,9 +5,10 @@ import PokemonView from "./PokemonView.jsx"
 
 class PokedexPage extends Component {
   render() {
+    const dexNumber = Math.floor(Math.random()*721);
     return (
       <div>
-        <PokemonView dexNum="25"/>
+        <PokemonView dexNumber={dexNumber} pokemon=""/>
       </div>
     );
   }
