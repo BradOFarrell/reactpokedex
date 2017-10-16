@@ -5,7 +5,7 @@ import Oak from './pokemonHelper.js';
 import NavBar from "./components/NavBar.jsx"
 import PokedexPage from "./components/PokedexPage.jsx"
 import BattlePage from "./components/BattlePage.jsx"
-import UserPage from "./components/UserPage.jsx"
+import TrainerPage from "./components/TrainerPage.jsx"
 import './App.css';
 
 class App extends Component {
@@ -33,7 +33,15 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar/>
+      <div>
+      <a href="/dex">Dex</a>
+      </div>
         <Router><Switch>
+        <Route path="/dex/:num" component={PokedexPage} />
+        <Route path="/dex" component={PokedexPage}/>
+        <Route path="/battle" component={BattlePage}/>
+        <Route path="/trainer" component={TrainerPage}/>
+        <Route path="/" component={PokedexPage}/>
         </Switch></Router>
       </div>
     );
