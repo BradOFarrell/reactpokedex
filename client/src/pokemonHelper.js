@@ -2,7 +2,7 @@ const dex = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "ch
 const SE = 2 // Super Effective 
 const rr = 1 // Regular Effective 
 const NV = 0.5 // Not Very Effective
-const XX = 0 // XXmune
+const XX = 0 // Immune
 const types = [
 // Note: this is by defense, not attack. The IRL game's grid is by attack.
 //           NM FR WT EL GS IC FG PO GD FL PS BG RC GH DG DK ST FA NO
@@ -84,7 +84,7 @@ class Oak{
         }
         return output;
     }
-    getBestAttack(attack1, attack2, defense1, defense2){
+    getBestAttackModifier(attack1, attack2, defense1, defense2){
         // Choose the best of two attack options vs hybrid defense
         const hybridDefense = this.getHybridType(defense1, defense2)
         const modifier1 = this.getAttackModifier(attack1, hybridDefense)

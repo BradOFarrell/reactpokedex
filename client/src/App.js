@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Switch, Route, Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
 import Oak from './pokemonHelper.js';
+import NavBar from "./components/NavBar.jsx"
+import PokedexPage from "./components/PokedexPage.jsx"
+import BattlePage from "./components/BattlePage.jsx"
+import UserPage from "./components/UserPage.jsx"
+import './App.css';
 
 class App extends Component {
   constructor() {
@@ -18,7 +22,7 @@ class App extends Component {
       console.log(this.state.trainer);
       console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
       console.log(Oak.nameToDex("pikachu"));
-      console.log(Oak.getBestAttack("fire","water","dragon","flying"));
+      console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
 
     })
     .catch((err) => {
@@ -28,17 +32,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-          {this.state.trainer.username}
-        </p>
+        <NavBar/>
+        <Router><Switch>
+        </Switch></Router>
       </div>
     );
   }
 }
 
+/*
+    <Route path="/idea/:userId" component={IdeaPage} />
+    <Route path="/login" component={LoginPage}/>
+    <Route path="/signup" component={SignUpFormPage}/>
+    <Route path="/" component={HomePage}/>
+*/
 export default App;
