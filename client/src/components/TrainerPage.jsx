@@ -11,12 +11,12 @@ class TrainerPage extends Component {
         if(this.props.trainer.party.team[0]){
             return (
             <div>
-                <PokemonView dexNumber={this.props.trainer.party.team[2].dexNumber}/>
+                <PokemonView pokemon={this.props.trainer.party.team[0]}/>
             </div>
             );
         } else {
             return (
-            <PokemonView dexNumber="0"/>
+            <div/>
             )
         }
     }
