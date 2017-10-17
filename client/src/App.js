@@ -22,6 +22,20 @@ class App extends Component {
       }, // this is the user you are playing as
     };
   }
+  componentWillMount(){
+    if(!this.state.trainer.initialized){
+      axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
+        this.initializeTrainer(res.data);
+        console.log(this.state.trainer);
+        console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
+        console.log(Oak.nameToDex("pikachu"));
+        console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
+      })
+      .catch((err) => {
+        console.log("Error loading users. "+err);
+      })
+    }
+  }
   initializeTrainer = (newTrainer) => {
     newTrainer.initialized = true;
     newTrainer.addPokemon = (newPokemon) =>{
@@ -53,21 +67,17 @@ class App extends Component {
     this.setState({trainer : newTrainer});
   }
   updateTrainer = (updatedTrainer) =>{
-    this.setState({trainer : updatedTrainer});
-  }
-  componentWillMount(){
-    if(!this.state.trainer.initialized){
-      axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
-        this.initializeTrainer(res.data);
-        console.log(this.state.trainer);
-        console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
-        console.log(Oak.nameToDex("pikachu"));
-        console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
-      })
-      .catch((err) => {
-        console.log("Error loading users. "+err);
-      })
-    }
+    this.setState({trainer : updatedTrainer});    
+    let updatedUser = {};
+    updatedUser.party = updatedTrainer.party;
+    updatedUser.username = updatedTrainer.username;
+    updatedUser.badges = updatedTrainer.badges;
+    axios.patch('/api/users/59e1235bc18a7a42b1dbb558', updatedUser).then((res) => {
+    console.log(res);
+    })
+    .catch((err) => {
+      console.log("Error loading users. "+err);
+    })
   }
   render() {
     return (
