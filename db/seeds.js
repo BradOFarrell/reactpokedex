@@ -34,25 +34,25 @@ PokemonModel.remove({}, function (err) {
 // Create starter Pokemon
 const pikachu = new PokemonModel({
     dexNumber: 25,        
-    baseStat: 112,        
+    baseStat: 320,        
     type1: "electric",
     type2: "none"})
 
 const bulbasaur = new PokemonModel({
     dexNumber: 1,        
-    baseStat: 64,        
+    baseStat: 318,        
     type1: "grass",
     type2: "poison"});
     
 const charmander = new PokemonModel({
     dexNumber: 4,        
-    baseStat: 62,        
+    baseStat: 309,        
     type1: "fire",
     type2: "none"});
 
 const squirtle = new PokemonModel({
     dexNumber: 7,        
-    baseStat: 62,        
+    baseStat: 309,        
     type1: "water",
     type2: "none"});
 

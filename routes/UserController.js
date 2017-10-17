@@ -12,10 +12,27 @@ router.get('/', async (req, res) => {
   }
 })
 
+// Get
 router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const user = await UserModel.findById(id)
+    res.json(user)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+// Update
+router.patch('/:id', async (req, res) => {
+  try {
+    console.log(req.body);
+    const updatedUser = req.body
+    const id = req.params.id;
+    const user = await UserModel.findById(id)
+    user.party = updatedUser.party
+    user.badges = updatedUser.badges    
+    user.save()
     res.json(user)
   } catch (err) {
     res.send(err)
