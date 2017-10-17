@@ -21,7 +21,7 @@ const PokemonViewWrapper = styled.div`
   }
 `
 class PokemonView extends Component {
-  getTypeIcon(typeString){
+  getTypeIcon = (typeString) =>{
     const styleString = "color: red"
     return (<span style={{color: Oak.getTypeColor(typeString)}}>{typeString}</span>)
   }
@@ -48,29 +48,43 @@ class PokemonView extends Component {
     }
 
     if(this.props.pokemon.dexNumber){
-        return (
-            <div>
-            <PokemonViewWrapper>
-            <h1>{pokemonName}</h1>
-            <img src={spriteURL}/>
-            <h4>{typeDisplay()}</h4>
-            <em>National Dex: #{pokemon.dexNumber}</em>
-            <h4>Power: <strong>{combatPoints}</strong></h4>
-            </PokemonViewWrapper>
-            </div>
-        );
-    } else {
+      if(this.props.mode === "caught"){
         return (
           <div>
           <PokemonViewWrapper>
-          <h1>Loading...</h1>
-          <img src={Oak.dexToSprite("egg")}/>
-          <h4>...</h4>
+          <h1>{pokemonName}</h1>
+          <img src={Oak.dexToSprite("ball")}/>
           <br/>
-          <h4>Oh?</h4>
+          <br/>The wild Pokemon was caught!
+          <br/>Go to the trainer tab to check!
           </PokemonViewWrapper>
           </div>
-     );
+        );
+      } else {
+        return (
+          <div>
+          <PokemonViewWrapper>
+          <h1>{pokemonName}</h1>
+          <img src={spriteURL}/>
+          <h4>{typeDisplay()}</h4>
+          <em>National Dex: #{pokemon.dexNumber}</em>
+          <h4>Power: <strong>{combatPoints}</strong></h4>
+          </PokemonViewWrapper>
+          </div>
+        );
+      }
+    } else {
+      return (
+        <div>
+        <PokemonViewWrapper>
+        <h1>Loading...</h1>
+        <img src={Oak.dexToSprite("egg")}/>
+        <h4>...</h4>
+        <br/>
+        <h4>Oh?</h4>
+        </PokemonViewWrapper>
+        </div>
+      );
     }
   }
 }

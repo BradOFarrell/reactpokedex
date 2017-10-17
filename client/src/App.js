@@ -22,33 +22,42 @@ class App extends Component {
       }, // this is the user you are playing as
     };
   }
-  initializeTrainer(newTrainer){
+  initializeTrainer = (newTrainer) => {
     newTrainer.initialized = true;
     newTrainer.addPokemon = (newPokemon) =>{
       let updatedTrainer = this.state.trainer;
       if(updatedTrainer.party.team.length < 6){
         updatedTrainer.party.team.push(newPokemon)
         updatedTrainer.party.winStreak = 0;
+        this.updateTrainer(updatedTrainer);
+        return true;
       }
-      this.setState({trainer : updatedTrainer});
+      return false;
     } 
     newTrainer.removePokemon = (dexNum) =>{
       let updatedTrainer = this.state.trainer;
       let stillSearching = true;
-      for(let i = 0; i < updatedTrainer.party.team.length && stillSearching; i++){
-        if(updatedTrainer.party.team[i].dexNumber === dexNum){
-          updatedTrainer.party.team.splice(i, 1);
-          updatedTrainer.party.winStreak = 0;
-          this.setState({trainer : updatedTrainer});
-          stillSearching = false;
+      if(updatedTrainer.party.team.length > 1){
+        for(let i = 0; i < updatedTrainer.party.team.length && stillSearching; i++){
+          if(updatedTrainer.party.team[i].dexNumber === dexNum){
+            updatedTrainer.party.team.splice(i, 1);
+            updatedTrainer.party.winStreak = 0;
+            this.updateTrainer(updatedTrainer);
+            stillSearching = false;
+            return true
+          }
+         }
         }
-      }
+      return false
     } 
     this.setState({trainer : newTrainer});
   }
+  updateTrainer = (updatedTrainer) =>{
+    this.setState({trainer : updatedTrainer});
+  }
   componentWillMount(){
     if(!this.state.trainer.initialized){
-        axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
+      axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
         this.initializeTrainer(res.data);
         console.log(this.state.trainer);
         console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
@@ -63,7 +72,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+      <div className="App">
         <NavBar/>
         <Switch>
         <Route path="/dex/:dexNum" render={(props) => (<PokedexPage trainer={this.state.trainer} fromURL={props.match}/>)}/>

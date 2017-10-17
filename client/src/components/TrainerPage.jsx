@@ -5,11 +5,22 @@ import PokemonView from "./PokemonView.jsx"
 
 class TrainerPage extends Component {
     componentWillMount(){
-        console.log()
+    }
+    removeFromParty = (pokemon) => {
+        this.props.trainer.removePokemon(pokemon.dexNumber);       
+    }
+    removeButton(pokemon){
+        if(this.props.trainer.party.team.length > 1){
+            return (<a href="#" onClick={()=> this.removeFromParty(pokemon)}>
+            Remove from party</a>)
+        } else {
+            return (<span>Can't remove last Pokemon.</span>)            
+        }
+
     }
     renderParty(pokemon){
         return (<p><PokemonView pokemon={pokemon}/>
-                Remove from Party</p>);
+                {this.removeButton(pokemon)}</p>);
     }
     render() {
         if(this.props.trainer.party.team[0]){
