@@ -31,9 +31,9 @@ class NavBar extends Component {
       <NavWrapper>
       <p>
       <Link to="/dex">Pokédex</Link>
-      &nbsp;
+      &nbsp;&nbsp;&nbsp;
       <Link to="/battle">Battle</Link>
-      &nbsp;
+      &nbsp;&nbsp;&nbsp;
       <Link to="/trainer">Trainer</Link>
       </p>
       </NavWrapper>

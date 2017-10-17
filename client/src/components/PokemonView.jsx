@@ -74,17 +74,30 @@ class PokemonView extends Component {
         );
       }
     } else {
-      return (
-        <div>
-        <PokemonViewWrapper>
-        <h1>Loading...</h1>
-        <img src={Oak.dexToSprite("egg")}/>
-        <h4>...</h4>
-        <br/>
-        <h4>Oh?</h4>
-        </PokemonViewWrapper>
-        </div>
-      );
+      if(this.props.mode === "battle"){
+        return (
+          <div>
+          <PokemonViewWrapper>
+          <h1>Loading...</h1>
+          <img src={Oak.dexToSprite("sub")}/>
+          <br/>
+          <br/>Getting ready for battle!
+          </PokemonViewWrapper>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+          <PokemonViewWrapper>
+          <h1>Loading...</h1>
+          <img src={Oak.dexToSprite("egg")}/>
+          <h4>...</h4>
+          <br/>
+          <h4>Oh?</h4>
+          </PokemonViewWrapper>
+          </div>
+        );
+      }
     }
   }
 }

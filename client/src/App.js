@@ -18,13 +18,14 @@ class App extends Component {
         party: {
           winStreak: 5,
           team: []
-        }
+        },
+        userId: '/api/users/59e66316e9bb279824e0f54e'
       }, // this is the user you are playing as
     };
   }
   componentWillMount(){
     if(!this.state.trainer.initialized){
-      axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
+      axios.get('/api/users/59e66316e9bb279824e0f54e').then((res) => {
         this.initializeTrainer(res.data);
         console.log(this.state.trainer);
         console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
@@ -72,7 +73,7 @@ class App extends Component {
     updatedUser.party = updatedTrainer.party;
     updatedUser.username = updatedTrainer.username;
     updatedUser.badges = updatedTrainer.badges;
-    axios.patch('/api/users/59e1235bc18a7a42b1dbb558', updatedUser).then((res) => {
+    axios.patch('/api/users/59e66316e9bb279824e0f54e', updatedUser).then((res) => {
     console.log(res);
     })
     .catch((err) => {
