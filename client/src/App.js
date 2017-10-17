@@ -16,26 +16,49 @@ class App extends Component {
       trainer: {
         username: '',
         party: {
-          winStreak: 0,
+          winStreak: 5,
           team: []
         }
       }, // this is the user you are playing as
     };
   }
-  updateTrainer(newTrainer){
+  initializeTrainer(newTrainer){
+    newTrainer.initialized = true;
+    newTrainer.addPokemon = (newPokemon) =>{
+      let updatedTrainer = this.state.trainer;
+      if(updatedTrainer.party.team.length < 6){
+        updatedTrainer.party.team.push(newPokemon)
+        updatedTrainer.party.winStreak = 0;
+      }
+      this.setState({trainer : updatedTrainer});
+    } 
+    newTrainer.removePokemon = (dexNum) =>{
+      let updatedTrainer = this.state.trainer;
+      let stillSearching = true;
+      for(let i = 0; i < updatedTrainer.party.team.length && stillSearching; i++){
+        if(updatedTrainer.party.team[i].dexNumber === dexNum){
+          updatedTrainer.party.team.splice(i, 1);
+          updatedTrainer.party.winStreak = 0;
+          this.setState({trainer : updatedTrainer});
+          stillSearching = false;
+        }
+      }
+    } 
     this.setState({trainer : newTrainer});
   }
   componentWillMount(){
-    axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
-      this.setState({trainer : res.data});
-      console.log(this.state.trainer);
-      console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
-      console.log(Oak.nameToDex("pikachu"));
-      console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
-    })
-    .catch((err) => {
-      console.log("Error loading users. "+err);
-    })
+    if(!this.state.trainer.initialized){
+        axios.get('/api/users/59e1235bc18a7a42b1dbb558').then((res) => {
+        this.initializeTrainer(res.data);
+        console.log(this.state.trainer);
+        console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
+        console.log(Oak.nameToDex("pikachu"));
+        console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
+      })
+      .catch((err) => {
+        console.log("Error loading users. "+err);
+      })
+    }
   }
   render() {
     return (
