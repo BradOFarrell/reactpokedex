@@ -7,13 +7,17 @@ class TrainerPage extends Component {
     componentWillMount(){
         console.log()
     }
+    renderParty(pokemon){
+        return (<p><PokemonView pokemon={pokemon}/>
+                Remove from Party</p>);
+    }
     render() {
         if(this.props.trainer.party.team[0]){
-            return (
-            <div>
-                <PokemonView pokemon={this.props.trainer.party.team[0]}/>
-            </div>
-            );
+            let party = []
+            for (var i=0; i < this.props.trainer.party.team.length; i++) {
+                party.push(this.renderParty(this.props.trainer.party.team[i]));
+            }
+            return (<div>{party}</div>);
         } else {
             return (
             <div/>

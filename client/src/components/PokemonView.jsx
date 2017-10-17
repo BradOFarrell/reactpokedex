@@ -5,14 +5,7 @@ import '../App.css';
 import Oak from '../pokemonHelper.js';
 
 const PokemonViewWrapper = styled.div`
-  background-color: red;
-  padding: 26px 5vw;
-  width: 100vw;
-  height: 75px;
-  border-bottom: 1px solid rgba(0,0,0,.0975);
-  p{
-    font-size: 2.75rem;
-    color: white;
+  div{
     text-align: center;
     font-family: 'Trebuchet MS';
     margin: 0;
@@ -20,34 +13,64 @@ const PokemonViewWrapper = styled.div`
       margin-bottom: 5px;
     }  
   }
-  a{
-    color: white;
+  h1{
+    text-transform: capitalize;    
+  }
+  h4{
+    text-transform: uppercase;    
   }
 `
 class PokemonView extends Component {
+  getTypeIcon(typeString){
+    const styleString = "color: red"
+    return (<span style={{color: Oak.getTypeColor(typeString)}}>{typeString}</span>)
+  }
   render() {
     const pokemon = this.props.pokemon;
     const spriteURL = Oak.dexToSprite(pokemon.dexNumber)
     const pokemonName = Oak.dexToName(pokemon.dexNumber);
-    const combatPoints = Oak.getCP(pokemon.dexNumber,pokemon.baseStat);
+    const combatPoints = pokemon.baseStat;
     const type1 = this.props.pokemon.type1
     const type2 = this.props.pokemon.type2
     
     const typeDisplay = ()=> {
-      return (<span>{type1} - {type2}</span>)
+      if(type2 === "none"){
+        return (<div>
+          {this.getTypeIcon(type1)}
+          </div>)
+      } else {
+        return (<div>
+          {this.getTypeIcon(type1)}
+          /
+          {this.getTypeIcon(type2)}        
+          </div>)
+       }
     }
 
-    if(this.props.pokemon){
+    if(this.props.pokemon.dexNumber){
         return (
             <div>
-            <img src={spriteURL}/>
+            <PokemonViewWrapper>
             <h1>{pokemonName}</h1>
-            <h1>{typeDisplay()}</h1>
-            <h1>{combatPoints}</h1>
+            <img src={spriteURL}/>
+            <h4>{typeDisplay()}</h4>
+            <em>National Dex: #{pokemon.dexNumber}</em>
+            <h4>Power: <strong>{combatPoints}</strong></h4>
+            </PokemonViewWrapper>
             </div>
         );
     } else {
-        return (<div/>);
+        return (
+          <div>
+          <PokemonViewWrapper>
+          <h1>Loading...</h1>
+          <img src={Oak.dexToSprite("egg")}/>
+          <h4>...</h4>
+          <br/>
+          <h4>Oh?</h4>
+          </PokemonViewWrapper>
+          </div>
+     );
     }
   }
 }

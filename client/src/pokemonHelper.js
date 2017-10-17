@@ -54,7 +54,6 @@ const typeColors = [
 "#e3a2e2", // Fairy
 "#000000"] // None
 
-
 /*
 The above, but rotated for attack rather than defense. Reference only.
  //           NM FR WT EL GS IC FG PO GD FL PS BG RC GH DG DK ST FA NO
@@ -97,18 +96,10 @@ class Oak{
     dexToSprite(dexNum){
         return "../sprites/"+dexNum+".png";
     }
-    getCP(dexNum,baseStat){
-        // Checks for Blissey and Audino line, which have unusually high EXP yield
-        // and cuts it to 1/3. For all other Pokemon, EXP yield maps to Combat Power.
-        if(dexNum === 440 || dexNum === 113 || dexNum === 242 || dexNum === 531)
-            return Math.floor(baseStat/3);
-        else
-            return baseStat
-    }
     newPokemon(dexNumber,baseStat,type1,type2){
         return {
             dexNumber: dexNumber,
-            baseStat: this.getCP(dexNumber,baseStat),
+            baseStat: baseStat,
             type1: type1,
             type2: type2
         }

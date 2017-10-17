@@ -20,7 +20,6 @@ class App extends Component {
           team: []
         }
       }, // this is the user you are playing as
-      num: 20
     };
   }
   updateTrainer(newTrainer){
@@ -44,8 +43,8 @@ class App extends Component {
         <div className="App">
         <NavBar/>
         <Switch>
-        <Route path="/dex/:num" render={() => (<PokedexPage/>)}/>
-        <Route path="/dex" render={() => (<PokedexPage/>)}/>
+        <Route path="/dex/:dexNum" render={(props) => (<PokedexPage trainer={this.state.trainer} fromURL={props.match}/>)}/>
+        <Route exact path="/dex" render={(props) => (<PokedexPage trainer={this.state.trainer}/>)}/>
         <Route path="/battle" render={() => (<BattlePage trainer={this.state.trainer}/>)}/>
         <Route path="/trainer" render={() => (<TrainerPage trainer={this.state.trainer}/>)}/>
         <Route exact path="/" render={() => (<PokedexPage/>)}/>
