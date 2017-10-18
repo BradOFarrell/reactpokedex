@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "post it notes for a practice project",
   "main": "index.js",
-  "engine": {
+  "engines": {
     "node": "8.6.0"
   },
   "repository": {
