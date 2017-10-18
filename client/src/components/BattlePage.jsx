@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import '../App.css';
 import axios from 'axios'
-import Oak from '../pokemonHelper.js';
+import Oak from '../professorOak.js';
 import PokemonView from "./PokemonView.jsx"
 
 

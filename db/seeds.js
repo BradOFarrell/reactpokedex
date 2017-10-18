@@ -55,6 +55,36 @@ const squirtle = new PokemonModel({
     baseStat: 309,        
     type1: "water",
     type2: "none"});
+    
+const staryu = new PokemonModel({
+    dexNumber: 120,        
+    baseStat: 340,        
+    type1: "water",
+    type2: "none"});
+
+const goldeen = new PokemonModel({
+    dexNumber: 180,        
+    baseStat: 320,        
+    type1: "water",
+    type2: "none"});
+
+const geodude = new PokemonModel({
+    dexNumber: 74,        
+    baseStat: 300,        
+    type1: "ground",
+    type2: "rock"});
+
+const onix = new PokemonModel({
+    dexNumber: 95,        
+    baseStat: 385,        
+    type1: "ground",
+    type2: "rock"});
+
+const vulpix = new PokemonModel({
+    dexNumber: 37,        
+    baseStat: 299,        
+    type1: "fire",
+    type2: "none"});
 
 // Create starter party
 const defaultParty = new PartyModel({
@@ -62,20 +92,30 @@ const defaultParty = new PartyModel({
     winStreak: 0 });
 
 const mistyParty = new PartyModel({
-    team: [squirtle],
+    team: [squirtle, staryu, goldeen],
+    winStreak: 0 });
+
+const brockParty = new PartyModel({
+    team: [geodude, onix, vulpix],
     winStreak: 0 });
 
 // Default Users
 const ash = new UserModel({
-    username: "ashketchum",
+    username: "ash_ketchum",
     badges: 0,
     party: defaultParty
 });
 
 const misty = new UserModel({
-    username: "mistycerulean",
+    username: "misty_cerulean",
     badges: 0,
     party: mistyParty
+});
+
+const brock = new UserModel({
+    username: "brock_pewter",
+    badges: 0,
+    party: brockParty
 });
 
 console.log("SAMPLE DATA (not yet saved)");
@@ -95,6 +135,14 @@ misty.save(function (err) {
         return;
     }
     console.log(misty);
+});
+
+brock.save(function (err) {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    console.log(brock);
 });
 
 // Disconnect from database
