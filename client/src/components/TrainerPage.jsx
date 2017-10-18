@@ -28,7 +28,7 @@ class TrainerPage extends Component {
             let row1 = []
             let row2 = []
             for (var i=0; i < this.props.trainer.party.team.length; i++) {
-                const slot = (<td>{this.renderParty(this.props.trainer.party.team[i])}</td>);
+                const slot = (<td width="200">{this.renderParty(this.props.trainer.party.team[i])}</td>);
                 if(i<3){
                     row1.push(slot)
                 } else{
@@ -37,7 +37,7 @@ class TrainerPage extends Component {
             }
             output.push(<tr>{row1}</tr>)
             output.push(<tr>{row2}</tr>)
-            return (<div><h3>{this.props.trainer.username}'s party:</h3><table align="center" width="600">{output}</table></div>);
+            return (<div><h3>{this.props.trainer.username}'s party:</h3><table align="center" width="620">{output}</table></div>);
         } else {
             return (
             <div/>
