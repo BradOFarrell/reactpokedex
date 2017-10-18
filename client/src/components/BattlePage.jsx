@@ -57,18 +57,18 @@ class BattlePage extends Component {
     
     let output = []
     let battleLog = []
-    battleLog.push(<p>My {myPokemonName}'s base power is is {this.state.selectedPokemon.baseStat}</p>)
-    battleLog.push(<p>My {myPokemonName}'s type advantage is {myAdvantage}x</p>)
-    battleLog.push(<p>My {myPokemonName}'s total power is... {myAttack}!</p>)
+    battleLog.push(<p>Your {myPokemonName}'s base power is is {this.state.selectedPokemon.baseStat}</p>)
+    battleLog.push(<p>Your {myPokemonName}'s type advantage is {myAdvantage}x</p>)
+    battleLog.push(<p>Your {myPokemonName}'s total power is... {myAttack}!</p>)
     if(myAdvantage > 1)
       battleLog.push(<p>It's SUPER EFFECTIVE!</p>)
     if(myAdvantage < 1)
       battleLog.push(<p>It's not very effective...</p>)
 
     battleLog.push(<br/>)
-    battleLog.push(<p>Foe {foePokemonName}'s base power is is {this.state.opponentPokemon.baseStat}</p>)
-    battleLog.push(<p>Foe {foePokemonName}'s type advantage is {foeAdvantage}x</p>)
-    battleLog.push(<p>Foe {foePokemonName}'s total power is... {foeAttack}!</p>)
+    battleLog.push(<p>Foe's {foePokemonName}'s base power is is {this.state.opponentPokemon.baseStat}</p>)
+    battleLog.push(<p>Foe's {foePokemonName}'s type advantage is {foeAdvantage}x</p>)
+    battleLog.push(<p>Foe's {foePokemonName}'s total power is... {foeAttack}!</p>)
     if(foeAdvantage > 1)
       battleLog.push(<p>It's SUPER EFFECTIVE!</p>)
     if(foeAdvantage < 1)

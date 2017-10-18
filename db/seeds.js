@@ -79,10 +79,7 @@ const misty = new UserModel({
 });
 
 console.log("SAMPLE DATA (not yet saved)");
-console.log(ash)
-console.log(defaultParty);
-console.log(misty)
-console.log(mistyParty);
+console.log(ash._id)
 
 // Save the results on their own
 ash.save(function (err) {

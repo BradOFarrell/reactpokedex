@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar.jsx"
 import PokedexPage from "./components/PokedexPage.jsx"
 import BattlePage from "./components/BattlePage.jsx"
 import TrainerPage from "./components/TrainerPage.jsx"
+import LoginPage from "./components/LoginPage.jsx"
 import './App.css';
 
 
@@ -19,13 +20,13 @@ class App extends Component {
           winStreak: 5,
           team: []
         },
-        userId: '/api/users/59e66316e9bb279824e0f54e'
+        userId: '/api/users/59e77087c785bea590ad953e'
       }, // this is the user you are playing as
     };
   }
   componentWillMount(){
     if(!this.state.trainer.initialized){
-      axios.get('/api/users/59e66316e9bb279824e0f54e').then((res) => {
+      axios.get('/api/users/59e77087c785bea590ad953e').then((res) => {
         this.initializeTrainer(res.data);
         console.log(this.state.trainer);
         console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
@@ -73,7 +74,7 @@ class App extends Component {
     updatedUser.party = updatedTrainer.party;
     updatedUser.username = updatedTrainer.username;
     updatedUser.badges = updatedTrainer.badges;
-    axios.patch('/api/users/59e66316e9bb279824e0f54e', updatedUser).then((res) => {
+    axios.patch('/api/users/59e77087c785bea590ad953e', updatedUser).then((res) => {
     console.log(res);
     })
     .catch((err) => {
@@ -81,20 +82,25 @@ class App extends Component {
     })
   }
   render() {
-    return (
-      <Router>
-      <div className="App">
-        <NavBar/>
-        <Switch>
-        <Route path="/dex/:dexNum" render={(props) => (<PokedexPage trainer={this.state.trainer} fromURL={props.match}/>)}/>
-        <Route exact path="/dex" render={(props) => (<PokedexPage trainer={this.state.trainer}/>)}/>
-        <Route path="/battle" render={() => (<BattlePage trainer={this.state.trainer}/>)}/>
-        <Route path="/trainer" render={() => (<TrainerPage trainer={this.state.trainer}/>)}/>
-        <Route exact path="/" render={() => (<PokedexPage/>)}/>
-        </Switch>
-      </div>
-      </Router>
-    );
+    if(this.state.trainer.party){
+        return (
+        <Router>
+        <div className="App">
+          <NavBar/>
+          <Switch>
+          <Route path="/dex/:dexNum" render={(props) => (<PokedexPage trainer={this.state.trainer} fromURL={props.match}/>)}/>
+          <Route exact path="/dex" render={(props) => (<PokedexPage trainer={this.state.trainer}/>)}/>
+          <Route path="/battle" render={() => (<BattlePage trainer={this.state.trainer}/>)}/>
+          <Route path="/trainer" render={() => (<TrainerPage trainer={this.state.trainer}/>)}/>
+          <Route exact path="/" render={() => (<PokedexPage/>)}/>
+          </Switch>
+        </div>
+        </Router>
+      );
+    }
+    else {
+      return (<div><LoginPage/></div>)
+    }
   }
 }
 
