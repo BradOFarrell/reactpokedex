@@ -20,25 +20,36 @@ class App extends Component {
           winStreak: 5,
           team: []
         },
-        logIn: {
-          userId: "59e77087c785bea590ad953e"
-        }
-      }, // this is the user you are playing as
-    };
+      },
+      userId: ''
+    }      
   }
-  componentWillMount(){
-    if(!this.state.trainer.initialized){
-      axios.get('/api/users/59e77087c785bea590ad953e').then((res) => {
-        this.initializeTrainer(res.data);
-        console.log(this.state.trainer);
-        console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
-        console.log(Oak.nameToDex("pikachu"));
-        console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
-      })
-      .catch((err) => {
-        console.log("Error loading users. "+err);
-      })
-    }
+  getTrainer = (userID) =>{
+    const userURL = '/api/users/'+userID;
+    axios.get(userURL).then((res) => {
+      this.initializeTrainer(res.data);
+      console.log(this.state.trainer);
+      console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
+      console.log(Oak.nameToDex("pikachu"));
+      console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
+    })
+    .catch((err) => {
+      console.log("Error loading users. "+err);
+    })
+  }
+  updateTrainer = (updatedTrainer) =>{
+    this.setState({trainer : updatedTrainer});    
+    let updatedUser = {};
+    updatedUser.party = updatedTrainer.party;
+    updatedUser.username = updatedTrainer.username;
+    updatedUser.badges = updatedTrainer.badges;
+    const userURL = '/api/users/'+updatedTrainer._id;
+    axios.patch(userURL, updatedUser).then((res) => {
+    console.log(res);
+    })
+    .catch((err) => {
+      console.log("Error loading users. "+err);
+    })
   }
   initializeTrainer = (newTrainer) => {
     newTrainer.initialized = true;
@@ -70,21 +81,15 @@ class App extends Component {
     } 
     this.setState({trainer : newTrainer});
   }
-  updateTrainer = (updatedTrainer) =>{
-    this.setState({trainer : updatedTrainer});    
-    let updatedUser = {};
-    updatedUser.party = updatedTrainer.party;
-    updatedUser.username = updatedTrainer.username;
-    updatedUser.badges = updatedTrainer.badges;
-    axios.patch('/api/users/59e77087c785bea590ad953e', updatedUser).then((res) => {
-    console.log(res);
-    })
-    .catch((err) => {
-      console.log("Error loading users. "+err);
-    })
+  logIn = (userId) => {
+    this.setState({userId : userId}, ()=>{
+      this.getTrainer(this.state.userId);
+    });
+  }
+  componentWillMount(){
   }
   render() {
-    if(this.state.trainer.party){
+    if(this.state.trainer.party.team[0]){
         return (
         <Router>
         <div className="App">
@@ -94,15 +99,15 @@ class App extends Component {
           <Route exact path="/dex" render={(props) => (<PokedexPage trainer={this.state.trainer}/>)}/>
           <Route path="/battle" render={() => (<BattlePage trainer={this.state.trainer}/>)}/>
           <Route path="/trainer" render={() => (<TrainerPage trainer={this.state.trainer}/>)}/>
-          <Route path="/login" render={() => (<LoginPage/>)}/>
-          <Route exact path="/" render={() => (<PokedexPage/>)}/>
+          <Route path="/login" render={() => (<LoginPage logIn={this.logIn}/>)}/>
+          <Route exact path="/" render={() => (<TrainerPage trainer={this.state.trainer} />)}/>
           </Switch>
         </div>
         </Router>
       );
     }
     else {
-      return (<div><LoginPage/></div>)
+      return (<Router><div><LoginPage logIn={this.logIn}/></div></Router>)
     }
   }
 }

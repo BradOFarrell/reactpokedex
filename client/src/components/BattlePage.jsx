@@ -75,7 +75,7 @@ class BattlePage extends Component {
       battleLog.push(<p>It's not very effective...</p>)
 
     battleLog.push(<br/>)
-    battleLog.push(<p>{myPokemonName}'s {myAttack} vs {foePokemonName}'s {foeAttack}</p>)
+    battleLog.push(<div>{myPokemonName}'s {myAttack} vs {foePokemonName}'s {foeAttack}</div>)
     output.push(<pre>{battleLog}</pre>)
 
     if(myAttack > foeAttack){
@@ -103,12 +103,12 @@ class BattlePage extends Component {
       <div>
         <table wdith="800" align="center">
         <tr>
-        <td width="300"><PokemonView pokemon={this.state.selectedPokemon} mode="battle"/></td>
-        <td><h1>VS</h1></td>
-        <td width="300"><PokemonView pokemon={this.state.opponentPokemon} mode="battle"/></td>
+        <td width="300" valign="top"><PokemonView pokemon={this.state.selectedPokemon} mode="battle"/></td>
+        <td><h1><strong>VS</strong></h1></td>
+        <td width="300" valign="top"><PokemonView pokemon={this.state.opponentPokemon} mode="battle"/></td>
         </tr>
         </table>
-      <h1>Results</h1>
+        <br/>
       {this.getBattleResults()}
       </div>
     );

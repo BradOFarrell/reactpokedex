@@ -12,7 +12,7 @@ class TrainerPage extends Component {
     removeButton(pokemon){
         if(this.props.trainer.party.team.length > 1){
             return (<a href="#" onClick={()=> this.removeFromParty(pokemon)}>
-            Remove from party</a>)
+            Release</a>)
         } else {
             return (<span>Can't remove last Pokemon.</span>)            
         }
@@ -24,11 +24,20 @@ class TrainerPage extends Component {
     }
     render() {
         if(this.props.trainer.party.team[0]){
-            let party = []
+            let output = []
+            let row1 = []
+            let row2 = []
             for (var i=0; i < this.props.trainer.party.team.length; i++) {
-                party.push(this.renderParty(this.props.trainer.party.team[i]));
+                const slot = (<td>{this.renderParty(this.props.trainer.party.team[i])}</td>);
+                if(i<3){
+                    row1.push(slot)
+                } else{
+                    row2.push(slot)                    
+                }
             }
-            return (<div>{party}</div>);
+            output.push(<tr>{row1}</tr>)
+            output.push(<tr>{row2}</tr>)
+            return (<div><h3>{this.props.trainer.username}'s party:</h3><table align="center" width="600">{output}</table></div>);
         } else {
             return (
             <div/>
