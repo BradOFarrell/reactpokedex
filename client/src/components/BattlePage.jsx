@@ -33,7 +33,6 @@ class BattlePage extends Component {
   getTeamPokemon = () =>{
     if(this.props.trainer.party.team[0]){
       const randomSlot = Math.floor(Math.random()*this.props.trainer.party.team.length)
-      console.log(randomSlot)
       this.setState({selectedPokemon : this.props.trainer.party.team[randomSlot]})      
     }
   }
@@ -80,9 +79,9 @@ class BattlePage extends Component {
     output.push(<pre>{battleLog}</pre>)
 
     if(myAttack > foeAttack){
-      output.push(<h1>Your {myPokemonName} won!</h1>)
+      output.push(<h1 style={{color: "#009900"}}>Your {myPokemonName} won!</h1>)
     } else if(myAttack < foeAttack){
-      output.push(<h1>You lost to {foePokemonName}...</h1>)
+      output.push(<h1 style={{color: "#990000"}}>You lost to {foePokemonName}...</h1>)
     } else {
       output.push(<h1>It's a draw!</h1>)      
     }
