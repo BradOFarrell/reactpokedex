@@ -51,16 +51,4 @@ router.post('/new/', async (req, res) => {
   }
 })
 
-// Delete
-router.post('/delete/', async (req, res) => {
-  try {
-    console.log(req.body);
-    const newUser = new UserModel(req.body)
-    const saved = newUser.save()
-    res.json(saved)
-  } catch (err) {
-    res.send(err)
-  }
-})
-
 module.exports = router
