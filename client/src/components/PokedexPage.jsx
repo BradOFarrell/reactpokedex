@@ -65,7 +65,7 @@ class PokedexPage extends Component {
   }
   addButton = () => {
     if (this.props.trainer.party.team.length < 6) {
-      return (<a href="#" onClick={this.addToParty}> Add to Party</a>);
+      return (<a href="#" onClick={this.addToParty}> Throw Pokéball</a>);
     } else {
       return (<strong>Your party is full.</strong>)
     }

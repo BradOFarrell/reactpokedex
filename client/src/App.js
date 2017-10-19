@@ -28,10 +28,6 @@ class App extends Component {
     const userURL = '/api/users/'+userID;
     axios.get(userURL).then((res) => {
       this.initializeTrainer(res.data);
-      console.log(this.state.trainer);
-      console.log(Oak.dexToName(this.state.trainer.party.team[0].dexNumber));
-      console.log(Oak.nameToDex("pikachu"));
-      console.log(Oak.getBestAttackModifier("fire","water","dragon","flying"));
     })
     .catch((err) => {
       console.log("Error loading users. "+err);
@@ -52,7 +48,6 @@ class App extends Component {
     })
   }
   initializeTrainer = (newTrainer) => {
-    newTrainer.initialized = true;
     newTrainer.addPokemon = (newPokemon) =>{
       let updatedTrainer = this.state.trainer;
       if(updatedTrainer.party.team.length < 6){
@@ -78,7 +73,17 @@ class App extends Component {
          }
         }
       return false
-    } 
+    }
+    newTrainer.signOut = () =>{
+      const blankTrainer = ({
+        username: '',
+        party: {
+          winStreak: 5,
+          team: []
+        }
+      });
+      this.setState({trainer : blankTrainer})
+    }
     this.setState({trainer : newTrainer});
   }
   logIn = (userId) => {

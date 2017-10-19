@@ -14,9 +14,14 @@ class TrainerPage extends Component {
             return (<a href="#" onClick={()=> this.removeFromParty(pokemon)}>
             Release</a>)
         } else {
-            return (<span>Can't remove last Pokemon.</span>)            
+            return (<span>Can't release last Pokémon.</span>)            
         }
 
+    }
+    signOutButton = () =>{
+        return (<a href="#" onClick={
+                () => { this.props.trainer.signOut()}
+                }>(Sign out)</a>)
     }
     renderParty(pokemon){
         return (<p><PokemonView pokemon={pokemon}/>
@@ -37,7 +42,9 @@ class TrainerPage extends Component {
             }
             output.push(<tr>{row1}</tr>)
             output.push(<tr>{row2}</tr>)
-            return (<div><h3>{this.props.trainer.username}'s party:</h3><table align="center" width="620">{output}</table></div>);
+            return (<div><h3>{this.props.trainer.username}'s party:
+                    </h3><table align="center" width="620">{output}</table>
+                    <br/>{this.signOutButton()}</div>);
         } else {
             return (
             <div/>

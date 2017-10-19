@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-// Get
+// Read
 router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
@@ -34,6 +34,30 @@ router.patch('/:id', async (req, res) => {
     user.badges = updatedUser.badges    
     user.save()
     res.json(user)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+// Create
+router.post('/new/', async (req, res) => {
+  try {
+    console.log(req.body);
+    const newUser = new UserModel(req.body)
+    const saved = newUser.save()
+    res.json(saved)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+// Delete
+router.post('/delete/', async (req, res) => {
+  try {
+    console.log(req.body);
+    const newUser = new UserModel(req.body)
+    const saved = newUser.save()
+    res.json(saved)
   } catch (err) {
     res.send(err)
   }
