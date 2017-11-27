@@ -92,7 +92,7 @@ class LogIn extends Component {
         <h3>Or make a new account:</h3>
         <form onSubmit={this.handleSubmit}>
         <input type="text" id="user-input" 
-        placeholder="your_user_name" maxlength="25"
+        placeholder="your_user_name" maxLength="25"
         onChange={ this.handleInput }/>
         <button type="submit">Go</button>    
         </form>

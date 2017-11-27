@@ -79,6 +79,21 @@ The above, but rotated for attack rather than defense. Reference only.
 */
 
 class Oak{
+    parsePokemonFromAPI(responeData){
+        let dexNumber = responeData.id
+
+        let baseStat = 0;
+        responeData.stats.forEach((e)=>{baseStat += e.base_stat})
+        console.log(baseStat)
+
+        let type1 = responeData.types[0].type.name;
+        let type2 = "none"
+        if (responeData.types.length == 2) {
+            type2 = responeData.types[1].type.name;
+        }
+
+        return this.newPokemon(dexNumber, baseStat, type1, type2)        
+    }
     dexToName(dexNum){
         const checkValue = dex[dexNum-1];
         if(checkValue)

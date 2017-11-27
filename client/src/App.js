@@ -82,16 +82,22 @@ class App extends Component {
           team: []
         }
       });
+      localStorage.removeItem("storedId");      
       this.setState({trainer : blankTrainer})
     }
     this.setState({trainer : newTrainer});
   }
   logIn = (userId) => {
+    localStorage.setItem('storedId', userId);    
     this.setState({userId : userId}, ()=>{
       this.getTrainer(this.state.userId);
     });
   }
   componentWillMount(){
+    var storedId = localStorage.getItem("storedId");
+    if(storedId){
+      this.logIn(storedId)      
+    }
   }
   render() {
     if(this.state.trainer.party.team[0]){
