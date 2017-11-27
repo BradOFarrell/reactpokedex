@@ -18,14 +18,17 @@ class PokedexPage extends Component {
     this.state.currentPokemon = {}
     this.state.isCatchable = true    
     axios.get('https://pokeapi.co/api/v2/pokemon/' + dexNumber).then((res) => {
+      console.log(res)
       const baseStat = (res.data.hp + res.data.sp_atk + res.data.sp_def + res.data.speed + res.data.defense + res.data.attack)
-      const type1 = res.data.types[0].name;
-      let type2 = "none"
-      if (res.data.types[1]) {
-        type2 = res.data.types[1].name;
+      if(baseStat > 0 ){
+        const type1 = res.data.types[0].name;
+        let type2 = "none"
+        if (res.data.types[1]) {
+          type2 = res.data.types[1].name;
+        }
+        const newPokemon = Oak.newPokemon(dexNumber, baseStat, type1, type2)
+        this.setState({ currentPokemon: newPokemon });
       }
-      const newPokemon = Oak.newPokemon(dexNumber, baseStat, type1, type2)
-      this.setState({ currentPokemon: newPokemon });
     })
       .catch((err) => {
         console.log("Error loading users. " + err);
