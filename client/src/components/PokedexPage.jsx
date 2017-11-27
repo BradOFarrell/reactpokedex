@@ -17,7 +17,7 @@ class PokedexPage extends Component {
   loadPokemon = (dexNumber) =>{
     this.state.currentPokemon = {}
     this.state.isCatchable = true    
-    axios.get('http://pokeapi.co/api/v2/pokemon/' + dexNumber).then((res) => {
+    axios.get('https://pokeapi.co/api/v2/pokemon/' + dexNumber).then((res) => {
       const baseStat = (res.data.hp + res.data.sp_atk + res.data.sp_def + res.data.speed + res.data.defense + res.data.attack)
       const type1 = res.data.types[0].name;
       let type2 = "none"

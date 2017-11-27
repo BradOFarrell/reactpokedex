@@ -16,7 +16,7 @@ class BattlePage extends Component {
   }
   loadPokemon = (dexNumber) =>{
     this.state.opponentPokemon = {}
-    axios.get('http://pokeapi.co/api/v2/pokemon/' + dexNumber).then((res) => {
+    axios.get('https://pokeapi.co/api/v2/pokemon/' + dexNumber).then((res) => {
       const baseStat = (res.data.hp + res.data.sp_atk + res.data.sp_def + res.data.speed + res.data.defense + res.data.attack)
       const type1 = res.data.types[0].name;
       let type2 = "none"
